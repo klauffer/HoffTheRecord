@@ -18,6 +18,9 @@
 
 ## TODO
 - Input validation on the command
+- validation in the handler
+- custom error numbers
+- custom exceptions
 - Abstract time for testing
 - Implement events (mediatr publications)
-- createdat endpoints
+- createdAt endpoints
