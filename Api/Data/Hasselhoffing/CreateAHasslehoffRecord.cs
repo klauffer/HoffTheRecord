@@ -11,8 +11,9 @@ namespace Data.Hasselhoffing
             _context = context;
         }
 
-        public async Task<int> Execute(string PersonThatCommittedTheOffense)
+        public async Task<int> Execute(string PersonThatCommittedTheOffense, CancellationToken cancellationToken = default)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var record = new HasslehoffRecord(PersonThatCommittedTheOffense);
             _context.Hoffs.Add(record);
             await _context.SaveChangesAsync();

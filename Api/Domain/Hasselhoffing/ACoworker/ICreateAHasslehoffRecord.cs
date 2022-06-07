@@ -2,6 +2,6 @@
 {
     public interface ICreateAHasslehoffRecord
     {
-        Task<int> Execute(string PersonThatCommittedTheOffense);
+        Task<int> Execute(string PersonThatCommittedTheOffense, CancellationToken cancellationToken = default);
     }
 }

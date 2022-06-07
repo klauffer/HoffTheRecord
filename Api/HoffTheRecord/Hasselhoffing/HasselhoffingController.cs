@@ -18,10 +18,10 @@ namespace API.Hasselhoffing
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> SubmitHoffing(HasslehoffACoworkerRequest hasslehoffAPersonRequest)
+        public async Task<IActionResult> SubmitHoffing(HasslehoffACoworkerRequest hasslehoffAPersonRequest, CancellationToken cancellationToken)
         {
             var command = hasslehoffAPersonRequest.ToCommand();
-            var HasslehoffingId = await _mediator.Send(command);
+            var HasslehoffingId = await _mediator.Send(command, cancellationToken);
             //return CreatedAtAction(nameof(Get), new { id = item.Id }, item);
             return CreatedAtAction(null, new { id = HasslehoffingId }, HasslehoffingId);
         }

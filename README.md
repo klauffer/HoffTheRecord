@@ -14,3 +14,10 @@
 
 ## How to Run Locally
 - dotnet tool install --global dotnet-ef
+
+
+## TODO
+- Input validation on the command
+- Abstract time for testing
+- Implement events (mediatr publications)
+- createdat endpoints

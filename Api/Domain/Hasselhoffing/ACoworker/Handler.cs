@@ -19,6 +19,7 @@ namespace Domain.Hasselhoffing.ACoworker
 
             async Task<Result<int>> IRequestHandler<HasselhoffingACoworkerCommand, Result<int>>.Handle(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var id = await _createAHasslehoffRecord.Execute(request.PersonThatCommittedTheOffense);
                 Result<int> result = new Result<int>.Success(id);
                 return result;

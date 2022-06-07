@@ -12,28 +12,28 @@ namespace HoffTheRecord.Integration.Tests.Infrastructure
             _client = client;
         }
 
-        internal async Task<HttpResponseMessage> Post<T>(string path, T body)
+        internal async Task<HttpResponseMessage> Post<T>(string path, T body, CancellationToken cancellationToken = default)
         {
             var serializedBody = JsonSerializer.Serialize(body);
             var requestContent = new StringContent(serializedBody, Encoding.UTF8, "application/json");
-            return await _client.PostAsync(path, requestContent);
+            return await _client.PostAsync(path, requestContent, cancellationToken);
         }
 
-        internal async Task<HttpResponseMessage> Get(string uri)
+        internal async Task<HttpResponseMessage> Get(string uri, CancellationToken cancellationToken = default)
         {
-            return await _client.GetAsync(uri);
+            return await _client.GetAsync(uri, cancellationToken);
         }
 
-        internal async Task<HttpResponseMessage> Delete(string uri)
+        internal async Task<HttpResponseMessage> Delete(string uri, CancellationToken cancellationToken = default)
         {
-            return await _client.DeleteAsync(uri);
+            return await _client.DeleteAsync(uri, cancellationToken);
         }
 
-        internal async Task<HttpResponseMessage> Put<T>(string path, T body)
+        internal async Task<HttpResponseMessage> Put<T>(string path, T body, CancellationToken cancellationToken = default)
         {
             var company = JsonSerializer.Serialize(body);
             var requestContent = new StringContent(company, Encoding.UTF8, "application/json");
-            return await _client.PutAsync(path, requestContent);
+            return await _client.PutAsync(path, requestContent, cancellationToken);
         }
     }
 }
