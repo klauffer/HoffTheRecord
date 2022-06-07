@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HoffTheRecord.Integration.Tests
+namespace HoffTheRecord.Integration.Tests.Infrastructure
 {
-    [CollectionDefinition("WebClientCollection")]
-    public class WebClientCollection :
+    [CollectionDefinition("DefaultCollectionDefinition")]
+    public class DefaultCollectionDefinition :
         ICollectionFixture<HoffTheRecordWebApplicationFactory<Program>>
     {
     }

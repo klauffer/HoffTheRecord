@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HoffTheRecord.Integration.Tests
+namespace HoffTheRecord.Integration.Tests.Infrastructure
 {
     public class HoffTheRecordHttpClient
     {
