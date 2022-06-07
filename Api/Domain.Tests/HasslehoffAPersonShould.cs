@@ -17,7 +17,7 @@ namespace HoffTheRecord.Integration.Tests
         public async Task ReturnASuccessCode()
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffAPersonRequest() { PersonThatCommittedTheOffense = "Bugs Bunny" };
+            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "Bugs Bunny" };
             var response = await client.Post("/api/Hasselhoffing", request);
             response.EnsureSuccessStatusCode();
         }

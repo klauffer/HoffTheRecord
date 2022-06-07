@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoffTheRecord.Integration.Tests", "Domain.Tests\HoffTheRecord.Integration.Tests.csproj", "{29BA46B3-9434-482A-BCBF-2A56F823C7CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{EE0D902D-A7DF-4892-8727-F9ABD2C23324}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{29BA46B3-9434-482A-BCBF-2A56F823C7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29BA46B3-9434-482A-BCBF-2A56F823C7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29BA46B3-9434-482A-BCBF-2A56F823C7CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE0D902D-A7DF-4892-8727-F9ABD2C23324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE0D902D-A7DF-4892-8727-F9ABD2C23324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE0D902D-A7DF-4892-8727-F9ABD2C23324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE0D902D-A7DF-4892-8727-F9ABD2C23324}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

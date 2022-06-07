@@ -3,18 +3,18 @@
     /// <summary>
     /// object representing a scenario when the return type can be one of two options
     /// </summary>
-    /// <typeparam name="TSuccess">the type for the left option</typeparam>
-    /// <typeparam name="TFailure">the type for the right option</typeparam>
+    /// <typeparam name="TSuccess">the type for the success option</typeparam>
+    /// <typeparam name="TFailure">the type for the Failure option</typeparam>
     public abstract class Result<TSuccess>
     {
         /// <summary>
         /// match on any case of <see cref="Result{L,R}"/>
         /// </summary>
         /// <typeparam name="T">return type of each case of the match</typeparam>
-        /// <param name="onLeft">the method to be ran if we are on the left path</param>
-        /// <param name="onRight">the method to be ran if we are on the left path</param>
+        /// <param name="onSuccess">the method to be ran if we are on the success path</param>
+        /// <param name="onFailure">the method to be ran if we are on the Failure path</param>
         /// <returns>returns an instance of <typeparamref name="T"/> </returns>
-        public abstract T Match<T>(Func<TSuccess, T> onLeft, Func<Error, T> onRight);
+        public abstract T Match<T>(Func<TSuccess, T> onSuccess, Func<Error, T> onFailure);
 
         /// <summary>
         /// Implicit converters to allow for a return value of type <typeparamref name="TSuccess"/> to be instantiated into type <see cref="Result{L,R}"/>
@@ -29,28 +29,28 @@
         public static implicit operator Result<TSuccess>(Error value) => new Result<TSuccess>.Failure(value);
 
         /// <summary>
-        /// the left side of the <see cref="Result{L,R}"/>
+        /// the success side of the <see cref="Result{L,R}"/>
         /// </summary>
         public sealed class Success : Result<TSuccess>
         {
-            private readonly TSuccess _left;
+            private readonly TSuccess _success;
 
             /// <summary>
             /// constructor accepting required return value
             /// </summary>
-            /// <param name="left">the value held by the Left answer</param>
-            public Success(TSuccess left)
+            /// <param name="success">the value held by the Success answer</param>
+            public Success(TSuccess success)
             {
-                _left = left;
+                _success = success;
             }
 
             /// <inheritdoc/>
-            public override T Match<T>(Func<TSuccess, T> onLeft, Func<Error, T> onRight) =>
-                onLeft(_left);
+            public override T Match<T>(Func<TSuccess, T> onSuccess, Func<Error, T> onFailure) =>
+                onSuccess(_success);
         }
 
         /// <summary>
-        /// the right side of the <see cref="Result{L,R}"/>
+        /// the failure side of the <see cref="Result{L,R}"/>
         /// </summary>
         public sealed class Failure : Result<TSuccess>
         {
@@ -59,40 +59,15 @@
             /// <summary>
             /// constructor accepting required return value
             /// </summary>
-            /// <param name="right">the value held by the right answer</param>
+            /// <param name="error">the value held by the failure answer</param>
             public Failure(Error error)
             {
                 _error = error;
             }
 
             /// <inheritdoc/>
-            public override T Match<T>(Func<TSuccess, T> onLeft, Func<Error, T> onRight) =>
-                onRight(_error);
+            public override T Match<T>(Func<TSuccess, T> onSuccess, Func<Error, T> onFailure) =>
+                onFailure(_error);
         }
     }
 }
-
-
-
-//public class Result<TSuccess>
-//{
-//    private TSuccess? _successObject;
-//    public TSuccess? SuccessObject { get => (TSuccess)_successObject; }
-//    public IEnumerable<Error> Errors { get; }
-//    public bool IsSuccessful { get; }
-
-//    private Result(TSuccess? successObject, IEnumerable<Error> errors, bool isSuccessful)
-//    {
-//        _successObject = successObject;
-//        Errors = errors;
-//        IsSuccessful = isSuccessful;
-//    }
-
-//    public static Result<TSuccess> Success(TSuccess successObject) =>
-//        new Result<TSuccess>(successObject, Enumerable.Empty<Error>(), true);
-
-//    public static Result<TSuccess> Failure(params Error[] errors) =>
-//        new Result<TSuccess>(default(TSuccess), errors.AsEnumerable(), false);
-
-
-//}

@@ -18,7 +18,7 @@ namespace API.Hasselhoffing
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> SubmitHoffing(HasslehoffAPersonRequest hasslehoffAPersonRequest)
+        public async Task<IActionResult> SubmitHoffing(HasslehoffACoworkerRequest hasslehoffAPersonRequest)
         {
             var command = hasslehoffAPersonRequest.ToCommand();
             var HasslehoffingId = await _mediator.Send(command);

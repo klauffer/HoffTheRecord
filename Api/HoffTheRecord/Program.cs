@@ -1,4 +1,5 @@
 using API;
+using Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddImplemenationDependencies();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    services.MigrateSchema();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

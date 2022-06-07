@@ -1,12 +1,13 @@
-﻿using Domain.Hasselhoffing.HasslehoffAPerson;
+﻿using Domain.Hasselhoffing.ACoworker;
+using static Domain.Hasselhoffing.ACoworker.HasselhoffingACoworkerHandler;
 
 namespace API.Hasselhoffing
 {
-    public class HasslehoffAPersonRequest
+    public class HasslehoffACoworkerRequest
     {
         public string PersonThatCommittedTheOffense { get; set; }
 
 
-        public Command ToCommand() => new Command(PersonThatCommittedTheOffense);
+        public HasselhoffingACoworkerCommand ToCommand() => new HasselhoffingACoworkerCommand(PersonThatCommittedTheOffense);
     }
 }

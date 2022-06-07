@@ -9,3 +9,8 @@
     - Image used
 - A person cannot be hoffed more then once within a minute
 - If a Person if Hoffed More then once in 5 minutes then they are placed on "Baywatch" status until they Hoff someone else
+
+
+
+## How to Run Locally
+- dotnet tool install --global dotnet-ef
