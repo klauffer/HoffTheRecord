@@ -1,8 +1,10 @@
-﻿namespace API
+﻿using Domain;
+
+namespace API
 {
     public static class DependencyInjectionMapping
     {
-        public static void AddDomain(this IServiceCollection services)
+        public static void AddImplemenationDependencies(this IServiceCollection services)
         {
             services.AddDomain();
         }

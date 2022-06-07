@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "HoffTheRecord\API.csproj", "{D762EB95-BB60-43D4-9392-39D44359757C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "HoffTheRecord\API.csproj", "{D762EB95-BB60-43D4-9392-39D44359757C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{582645A3-8FDB-4CF5-8D4E-B8404021F52B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{582645A3-8FDB-4CF5-8D4E-B8404021F52B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{29BA46B3-9434-482A-BCBF-2A56F823C7CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoffTheRecord.Integration.Tests", "Domain.Tests\HoffTheRecord.Integration.Tests.csproj", "{29BA46B3-9434-482A-BCBF-2A56F823C7CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
