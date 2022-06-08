@@ -1,9 +1,18 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 
 namespace Domain.Hasselhoffing.ACoworker
 {
     public class HasselhoffingACoworkerHandler
     {
+        public class Validator : AbstractValidator<HasselhoffingACoworkerCommand>
+        {
+            public Validator()
+            {
+                RuleFor(m => m.PersonThatCommittedTheOffense).NotEmpty();
+            }
+        }
+
         public record HasselhoffingACoworkerCommand(string PersonThatCommittedTheOffense) : IRequest<Result<int>>
         {
         }

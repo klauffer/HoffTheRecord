@@ -4,7 +4,6 @@
     /// object representing a scenario when the return type can be one of two options
     /// </summary>
     /// <typeparam name="TSuccess">the type for the success option</typeparam>
-    /// <typeparam name="TFailure">the type for the Failure option</typeparam>
     public abstract class Result<TSuccess>
     {
         /// <summary>

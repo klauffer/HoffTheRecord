@@ -1,4 +1,5 @@
 using API;
+using API.UniversalExceptionHandler;
 using Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCustomExceptionHandlingMiddleware();
 
 app.MapControllers();
 
