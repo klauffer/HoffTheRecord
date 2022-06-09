@@ -1,10 +1,9 @@
 using API.Hasselhoffing;
 using API.UniversalExceptionHandler;
-using FluentValidation;
-using HoffTheRecord.Integration.Tests.Infrastructure;
+using HoffTheRecord.Acceptance.Tests.Infrastructure;
 using System.Net;
 
-namespace HoffTheRecord.Integration.Tests
+namespace HoffTheRecord.Acceptance.Tests
 {
     [Collection("DefaultCollectionDefinition")]
     public class HasslehoffACoworkerShould
@@ -43,10 +42,7 @@ namespace HoffTheRecord.Integration.Tests
             var client = _factory.BuildClient();
             var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "" };
             var response = await client.Post("/api/Hasselhoffing", request);
-
-            var note = await response.GetResponse<HttpValidationErrorResponse>();
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-            //await Assert.ThrowsAsync<ValidationException>(async () => await client.Post("/api/Hasselhoffing", request));
         }
     }
 }

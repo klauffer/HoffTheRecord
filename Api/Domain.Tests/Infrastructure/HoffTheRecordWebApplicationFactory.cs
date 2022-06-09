@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HoffTheRecord.Integration.Tests.Infrastructure
+namespace HoffTheRecord.Acceptance.Tests.Infrastructure
 {
     public class HoffTheRecordWebApplicationFactory<TStartup>
         : WebApplicationFactory<TStartup> where TStartup : class

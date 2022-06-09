@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace HoffTheRecord.Integration.Tests.Infrastructure
+namespace HoffTheRecord.Acceptance.Tests.Infrastructure
 {
     public class HoffTheRecordHttpClient
     {

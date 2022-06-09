@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "HoffTheRecord\API.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{582645A3-8FDB-4CF5-8D4E-B8404021F52B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoffTheRecord.Integration.Tests", "Domain.Tests\HoffTheRecord.Integration.Tests.csproj", "{29BA46B3-9434-482A-BCBF-2A56F823C7CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HoffTheRecord.Acceptance.Tests", "Domain.Tests\HoffTheRecord.Acceptance.Tests.csproj", "{29BA46B3-9434-482A-BCBF-2A56F823C7CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{EE0D902D-A7DF-4892-8727-F9ABD2C23324}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{EE0D902D-A7DF-4892-8727-F9ABD2C23324}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

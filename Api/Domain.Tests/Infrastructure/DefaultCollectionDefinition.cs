@@ -1,4 +1,4 @@
-﻿namespace HoffTheRecord.Integration.Tests.Infrastructure
+﻿namespace HoffTheRecord.Acceptance.Tests.Infrastructure
 {
     [CollectionDefinition("DefaultCollectionDefinition")]
     public class DefaultCollectionDefinition :
