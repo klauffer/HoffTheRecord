@@ -34,15 +34,20 @@ namespace Domain.Hasselhoffing.ACoworker
 
             async Task<Result<int>> IRequestHandler<HasselhoffingACoworkerCommand, Result<int>>.Handle(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                var createAHasslehoffRecordArguements = new CreateAHasslehoffRecordArguements(
-                    request.PersonThatCommittedTheOffense,
-                    request.PersonThatWasHoffed,
-                    request.ImageUrl);
-                var HasslehoffId = await _createAHasslehoffRecord.Execute(createAHasslehoffRecordArguements, cancellationToken);
+                int HasslehoffId = await SaveHasslehoffing(request, cancellationToken);
                 Result<int> result = new Result<int>.Success(HasslehoffId);
 
                 return result;
+            }
+
+            private async Task<int> SaveHasslehoffing(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
+            {
+                var createAHasslehoffRecordArguements = new CreateAHasslehoffRecordArguements(
+                                    request.PersonThatCommittedTheOffense,
+                                    request.PersonThatWasHoffed,
+                                    request.ImageUrl);
+                var HasslehoffId = await _createAHasslehoffRecord.Execute(createAHasslehoffRecordArguements, cancellationToken);
+                return HasslehoffId;
             }
         }
 

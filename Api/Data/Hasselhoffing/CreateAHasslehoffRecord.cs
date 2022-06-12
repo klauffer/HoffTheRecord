@@ -13,7 +13,6 @@ namespace Data.Hasselhoffing
 
         public async Task<int> Execute(ICreateAHasslehoffRecord.CreateAHasslehoffRecordArguements arguements, CancellationToken cancellationToken = default)
         {
-            cancellationToken.ThrowIfCancellationRequested();
             var record = HasslehoffRecord.FromCreateAHasslehoffRecordArguements(arguements);
             _context.Hoffs.Add(record);
             await _context.SaveChangesAsync();
