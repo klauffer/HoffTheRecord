@@ -11,10 +11,10 @@ namespace Data.Hasselhoffing
             _context = context;
         }
 
-        public async Task<int> Execute(string PersonThatCommittedTheOffense, CancellationToken cancellationToken = default)
+        public async Task<int> Execute(ICreateAHasslehoffRecord.CreateAHasslehoffRecordArguements arguements, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var record = new HasslehoffRecord(PersonThatCommittedTheOffense);
+            var record = HasslehoffRecord.FromCreateAHasslehoffRecordArguements(arguements);
             _context.Hoffs.Add(record);
             await _context.SaveChangesAsync();
             return record.Id;

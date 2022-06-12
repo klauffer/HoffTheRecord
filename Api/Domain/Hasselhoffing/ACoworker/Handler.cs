@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using static Domain.Hasselhoffing.ACoworker.ICreateAHasslehoffRecord;
 
 namespace Domain.Hasselhoffing.ACoworker
 {
@@ -11,10 +12,14 @@ namespace Domain.Hasselhoffing.ACoworker
             {
                 RuleFor(m => m.PersonThatCommittedTheOffense).NotEmpty();
                 RuleFor(m => m.PersonThatWasHoffed).NotEmpty();
+                RuleFor(m => m.ImageUrl).NotEmpty();
             }
         }
 
-        public record HasselhoffingACoworkerCommand(string PersonThatCommittedTheOffense, string PersonThatWasHoffed) : IRequest<Result<int>>
+        public record HasselhoffingACoworkerCommand(
+            string PersonThatCommittedTheOffense,
+            string PersonThatWasHoffed,
+            string ImageUrl) : IRequest<Result<int>>
         {
         }
 
@@ -30,8 +35,12 @@ namespace Domain.Hasselhoffing.ACoworker
             async Task<Result<int>> IRequestHandler<HasselhoffingACoworkerCommand, Result<int>>.Handle(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                var id = await _createAHasslehoffRecord.Execute(request.PersonThatCommittedTheOffense);
-                Result<int> result = new Result<int>.Success(id);
+                var createAHasslehoffRecordArguements = new CreateAHasslehoffRecordArguements(
+                    request.PersonThatCommittedTheOffense,
+                    request.PersonThatWasHoffed,
+                    request.ImageUrl);
+                var HasslehoffId = await _createAHasslehoffRecord.Execute(createAHasslehoffRecordArguements, cancellationToken);
+                Result<int> result = new Result<int>.Success(HasslehoffId);
 
                 return result;
             }

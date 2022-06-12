@@ -19,7 +19,12 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task ReturnASuccessCode()
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "Bugs Bunny", PersonThatWasHoffed="Elmer Fudd" };
+            var request = new HasslehoffACoworkerRequest()
+            {
+                PersonThatCommittedTheOffense = "Bugs Bunny",
+                PersonThatWasHoffed = "Elmer Fudd",
+                ImageUrl = "https://picsum.photos/200/300"
+            };
             var response = await client.Post("/api/Hasselhoff", request);
             response.EnsureSuccessStatusCode();
         }
@@ -28,7 +33,11 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task CancelTheRequest()
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "Bugs Bunny" };
+            var request = new HasslehoffACoworkerRequest() { 
+                PersonThatCommittedTheOffense = "Bugs Bunny",
+                PersonThatWasHoffed = "Elmer Fudd",
+                ImageUrl = "https://picsum.photos/200/300"
+            };
 
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
@@ -43,7 +52,12 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task RequirePersonThatCommittedTheOffense(string personThatCommittedTheOffense)
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = personThatCommittedTheOffense };
+            var request = new HasslehoffACoworkerRequest() 
+            { 
+                PersonThatCommittedTheOffense = personThatCommittedTheOffense,
+                PersonThatWasHoffed = "Elmer Fudd",
+                ImageUrl = "https://picsum.photos/200/300"
+            };
             var response = await client.Post("/api/Hasselhoff", request);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -55,7 +69,29 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task RequirePersonThatWasHoffed(string personThatWasHoffed)
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "Bugs Bunny", PersonThatWasHoffed = personThatWasHoffed };
+            var request = new HasslehoffACoworkerRequest()
+            {
+                PersonThatCommittedTheOffense = "Bugs Bunny",
+                PersonThatWasHoffed = personThatWasHoffed,
+                ImageUrl = "https://picsum.photos/200/300"
+            };
+            var response = await client.Post("/api/Hasselhoff", request);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public async Task RequireImageUrl(string imageUrl)
+        {
+            var client = _factory.BuildClient();
+            var request = new HasslehoffACoworkerRequest()
+            {
+                PersonThatCommittedTheOffense = "Bugs Bunny",
+                PersonThatWasHoffed = "Elmer Fudd",
+                ImageUrl = imageUrl
+            };
             var response = await client.Post("/api/Hasselhoff", request);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
