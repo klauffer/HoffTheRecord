@@ -21,9 +21,9 @@ namespace API.Hasselhoffing
         public async Task<IActionResult> SubmitHoffing(HasslehoffACoworkerRequest hasslehoffAPersonRequest, CancellationToken cancellationToken)
         {
             var command = hasslehoffAPersonRequest.ToCommand();
-            var HasslehoffingId = await _mediator.Send(command, cancellationToken);
+            var response = await _mediator.Send(command, cancellationToken);
             //return CreatedAtAction(nameof(Get), new { id = item.Id }, item);
-            return CreatedAtAction(null, new { id = HasslehoffingId }, HasslehoffingId);
+            return CreatedAtAction(null, new { id = response.Id }, response);
         }
     }
 }

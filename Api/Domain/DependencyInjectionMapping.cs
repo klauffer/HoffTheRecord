@@ -1,4 +1,5 @@
 ﻿
+using Domain.Hasselhoffing.ACoworker;
 using Domain.UniversalCancellationHandler;
 using Domain.UniversalValidator;
 using FluentValidation;
@@ -16,6 +17,8 @@ namespace Domain
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CancellationTokenHandler<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            services.AddHasselhoffingACoworker();
         }
     }
 }

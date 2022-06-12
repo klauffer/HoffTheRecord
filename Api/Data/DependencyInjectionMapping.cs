@@ -9,7 +9,7 @@ namespace Persistence
         public static void AddPersistence(this IServiceCollection services)
         {
             services.AddDbContext<HoffTheRecordContext>();
-            services.AddTransient<ICreateAHasslehoffRecord, CreateAHasslehoffRecord>();
+            services.AddTransient<IInsertAHasslehoffRecord, CreateAHasslehoffRecord>();
         }
     }
 }
