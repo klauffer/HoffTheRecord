@@ -1,6 +1,6 @@
-﻿using static Domain.Hasselhoffing.ACoworker.ICreateAHasslehoffRecord;
+﻿using static Domain.Hasselhoffing.ACoworker.IInsertAHasslehoffRecord;
 
-namespace Data.Hasselhoffing
+namespace Persistence.Hasselhoffing
 {
     internal sealed class HasslehoffRecord
     {
@@ -16,7 +16,7 @@ namespace Data.Hasselhoffing
             ImageUrl = imageUrl;
         }
 
-        public static HasslehoffRecord FromCreateAHasslehoffRecordArguements(CreateAHasslehoffRecordArguements arguements)
+        public static HasslehoffRecord FromCreateAHasslehoffRecordArguements(InsertAHasslehoffRecordArguements arguements)
             => new HasslehoffRecord(
                 arguements.PersonThatCommittedTheOffense,
                 arguements.PersonThatWasHoffed,

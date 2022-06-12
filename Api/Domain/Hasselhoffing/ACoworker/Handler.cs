@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
-using static Domain.Hasselhoffing.ACoworker.ICreateAHasslehoffRecord;
+using static Domain.Hasselhoffing.ACoworker.IInsertAHasslehoffRecord;
 
 namespace Domain.Hasselhoffing.ACoworker
 {
@@ -23,11 +23,19 @@ namespace Domain.Hasselhoffing.ACoworker
         {
         }
 
+        public record HasselhoffingACoworkerResponse(
+            int Id,
+            string PersonThatCommittedTheOffense,
+            string PersonThatWasHoffed,
+            string ImageUrl) : IRequest<Result<int>>
+        {
+        }
+
         public class CommandHandler : IRequestHandler<HasselhoffingACoworkerCommand, Result<int>>
         {
-            private readonly ICreateAHasslehoffRecord _createAHasslehoffRecord;
+            private readonly IInsertAHasslehoffRecord _createAHasslehoffRecord;
 
-            public CommandHandler(ICreateAHasslehoffRecord createAHasslehoffRecord)
+            public CommandHandler(IInsertAHasslehoffRecord createAHasslehoffRecord)
             {
                 _createAHasslehoffRecord = createAHasslehoffRecord;
             }
@@ -42,7 +50,7 @@ namespace Domain.Hasselhoffing.ACoworker
 
             private async Task<int> SaveHasslehoffing(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
             {
-                var createAHasslehoffRecordArguements = new CreateAHasslehoffRecordArguements(
+                var createAHasslehoffRecordArguements = new InsertAHasslehoffRecordArguements(
                                     request.PersonThatCommittedTheOffense,
                                     request.PersonThatWasHoffed,
                                     request.ImageUrl);

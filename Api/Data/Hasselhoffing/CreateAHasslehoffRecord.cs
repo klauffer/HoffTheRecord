@@ -1,8 +1,8 @@
 ﻿using Domain.Hasselhoffing.ACoworker;
 
-namespace Data.Hasselhoffing
+namespace Persistence.Hasselhoffing
 {
-    internal class CreateAHasslehoffRecord : ICreateAHasslehoffRecord
+    internal class CreateAHasslehoffRecord : IInsertAHasslehoffRecord
     {
         private readonly HoffTheRecordContext _context;
 
@@ -11,7 +11,7 @@ namespace Data.Hasselhoffing
             _context = context;
         }
 
-        public async Task<int> Execute(ICreateAHasslehoffRecord.CreateAHasslehoffRecordArguements arguements, CancellationToken cancellationToken = default)
+        public async Task<int> Execute(IInsertAHasslehoffRecord.InsertAHasslehoffRecordArguements arguements, CancellationToken cancellationToken = default)
         {
             var record = HasslehoffRecord.FromCreateAHasslehoffRecordArguements(arguements);
             _context.Hoffs.Add(record);

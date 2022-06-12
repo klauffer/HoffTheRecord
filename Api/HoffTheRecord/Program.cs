@@ -1,6 +1,6 @@
 using API;
 using API.UniversalExceptionHandler;
-using Data;
+using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

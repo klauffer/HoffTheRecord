@@ -1,12 +1,12 @@
-﻿using Data.Hasselhoffing;
+﻿using Persistence.Hasselhoffing;
 using Domain.Hasselhoffing.ACoworker;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Data
+namespace Persistence
 {
     public static class DependencyInjectionMapping
     {
-        public static void AddDatabase(this IServiceCollection services)
+        public static void AddPersistence(this IServiceCollection services)
         {
             services.AddDbContext<HoffTheRecordContext>();
             services.AddTransient<ICreateAHasslehoffRecord, CreateAHasslehoffRecord>();

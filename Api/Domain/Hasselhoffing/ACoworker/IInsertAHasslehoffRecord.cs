@@ -1,14 +1,14 @@
 ﻿namespace Domain.Hasselhoffing.ACoworker
 {
-    public interface ICreateAHasslehoffRecord
+    public interface IInsertAHasslehoffRecord
     {
-        public class CreateAHasslehoffRecordArguements
+        public class InsertAHasslehoffRecordArguements
         {
             public string PersonThatCommittedTheOffense { get; }
             public string PersonThatWasHoffed { get; set; }
             public string ImageUrl { get; set; }
 
-            public CreateAHasslehoffRecordArguements(string personThatCommittedTheOffense, string personThatWasHoffed, string imageUrl)
+            public InsertAHasslehoffRecordArguements(string personThatCommittedTheOffense, string personThatWasHoffed, string imageUrl)
             {
                 PersonThatCommittedTheOffense = personThatCommittedTheOffense;
                 PersonThatWasHoffed = personThatWasHoffed;
@@ -19,7 +19,7 @@
         }
 
         Task<int> Execute(
-            CreateAHasslehoffRecordArguements arguements,
+            InsertAHasslehoffRecordArguements arguements,
             CancellationToken cancellationToken = default);
     }
 }

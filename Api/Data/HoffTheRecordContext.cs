@@ -1,7 +1,7 @@
-﻿using Data.Hasselhoffing;
+﻿using Persistence.Hasselhoffing;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data
+namespace Persistence
 {
     internal class HoffTheRecordContext : DbContext
     {

@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Persistence;
 using Domain;
 
 namespace API
@@ -8,7 +8,7 @@ namespace API
         public static void AddImplemenationDependencies(this IServiceCollection services)
         {
             services.AddDomain();
-            services.AddDatabase();
+            services.AddPersistence();
         }
     }
 }
