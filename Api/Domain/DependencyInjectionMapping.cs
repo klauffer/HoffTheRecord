@@ -1,4 +1,5 @@
-﻿using Domain.UniversalPipelineBehaviours;
+﻿
+using Domain.UniversalValidator;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

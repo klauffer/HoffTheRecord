@@ -10,10 +10,11 @@ namespace Domain.Hasselhoffing.ACoworker
             public Validator()
             {
                 RuleFor(m => m.PersonThatCommittedTheOffense).NotEmpty();
+                RuleFor(m => m.PersonThatWasHoffed).NotEmpty();
             }
         }
 
-        public record HasselhoffingACoworkerCommand(string PersonThatCommittedTheOffense) : IRequest<Result<int>>
+        public record HasselhoffingACoworkerCommand(string PersonThatCommittedTheOffense, string PersonThatWasHoffed) : IRequest<Result<int>>
         {
         }
 
@@ -31,6 +32,7 @@ namespace Domain.Hasselhoffing.ACoworker
                 cancellationToken.ThrowIfCancellationRequested();
                 var id = await _createAHasslehoffRecord.Execute(request.PersonThatCommittedTheOffense);
                 Result<int> result = new Result<int>.Success(id);
+
                 return result;
             }
         }

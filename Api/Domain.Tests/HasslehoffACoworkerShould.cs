@@ -19,8 +19,8 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task ReturnASuccessCode()
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "Bugs Bunny" };
-            var response = await client.Post("/api/Hasselhoffing", request);
+            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "Bugs Bunny", PersonThatWasHoffed="Elmer Fudd" };
+            var response = await client.Post("/api/Hasselhoff", request);
             response.EnsureSuccessStatusCode();
         }
 
@@ -33,15 +33,30 @@ namespace HoffTheRecord.Acceptance.Tests
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
             tokenSource.Cancel();
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => await client.Post("/api/Hasselhoffing", request, token));
+            await Assert.ThrowsAsync<OperationCanceledException>(async () => await client.Post("/api/Hasselhoff", request, token));
         }
 
-        [Fact]
-        public async Task RequirePersonThatCommittedTheOffense()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public async Task RequirePersonThatCommittedTheOffense(string personThatCommittedTheOffense)
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "" };
-            var response = await client.Post("/api/Hasselhoffing", request);
+            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = personThatCommittedTheOffense };
+            var response = await client.Post("/api/Hasselhoff", request);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public async Task RequirePersonThatWasHoffed(string personThatWasHoffed)
+        {
+            var client = _factory.BuildClient();
+            var request = new HasslehoffACoworkerRequest() { PersonThatCommittedTheOffense = "Bugs Bunny", PersonThatWasHoffed = personThatWasHoffed };
+            var response = await client.Post("/api/Hasselhoff", request);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
     }

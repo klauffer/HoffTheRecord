@@ -5,12 +5,12 @@ namespace API.Hasselhoffing
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HasselhoffingController : ControllerBase
+    public class HasselhoffController : ControllerBase
     {
-        private readonly ILogger<HasselhoffingController> _logger;
+        private readonly ILogger<HasselhoffController> _logger;
         private readonly IMediator _mediator;
 
-        public HasselhoffingController(ILogger<HasselhoffingController> logger, IMediator mediator)
+        public HasselhoffController(ILogger<HasselhoffController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;

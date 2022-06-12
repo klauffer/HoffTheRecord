@@ -6,8 +6,9 @@ namespace API.Hasselhoffing
     public class HasslehoffACoworkerRequest
     {
         public string PersonThatCommittedTheOffense { get; set; }
+        public string PersonThatWasHoffed { get; set; }
 
 
-        public HasselhoffingACoworkerCommand ToCommand() => new HasselhoffingACoworkerCommand(PersonThatCommittedTheOffense);
+        public HasselhoffingACoworkerCommand ToCommand() => new HasselhoffingACoworkerCommand(PersonThatCommittedTheOffense, PersonThatWasHoffed);
     }
 }
