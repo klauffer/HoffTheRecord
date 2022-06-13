@@ -2,6 +2,7 @@ using API.Hasselhoffing;
 using API.UniversalExceptionHandler;
 using HoffTheRecord.Acceptance.Tests.Infrastructure;
 using System.Net;
+using static Domain.Hasselhoffing.ACoworker.HasselhoffingACoworkerHandler;
 
 namespace HoffTheRecord.Acceptance.Tests
 {
@@ -94,6 +95,23 @@ namespace HoffTheRecord.Acceptance.Tests
             };
             var response = await client.Post("/api/Hasselhoff", request);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task RecordATimeStamp()
+        {
+            var client = _factory.BuildClient();
+            var request = new HasslehoffACoworkerRequest()
+            {
+                PersonThatCommittedTheOffense = "Bugs Bunny",
+                PersonThatWasHoffed = "Elmer Fudd",
+                ImageUrl = "https://picsum.photos/200/300"
+            };
+            var response = await client.Post("/api/Hasselhoff", request);
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.GetResponse<HasselhoffingACoworkerResponse>();
+            Assert.NotNull(responseBody?.TimeOfTheHoffing);
         }
     }
 }

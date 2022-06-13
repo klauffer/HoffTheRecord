@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Domain.UniversalDateTime;
+using FluentValidation;
 using MediatR;
 
 namespace Domain.Hasselhoffing.ACoworker
@@ -28,12 +29,14 @@ namespace Domain.Hasselhoffing.ACoworker
             public string PersonThatCommittedTheOffense { get; }
             public string PersonThatWasHoffed { get; }
             public string ImageUrl { get; }
+            public DateTime TimeOfTheHoffing { get; }
 
-            public HasselhoffingACoworkerResponse(string personThatCommittedTheOffense, string personThatWasHoffed, string imageUrl)
+            public HasselhoffingACoworkerResponse(string personThatCommittedTheOffense, string personThatWasHoffed, string imageUrl, DateTime timeOfTheHoffing)
             {
                 PersonThatCommittedTheOffense = personThatCommittedTheOffense;
                 PersonThatWasHoffed = personThatWasHoffed;
                 ImageUrl = imageUrl;
+                TimeOfTheHoffing = timeOfTheHoffing;
             }
 
             internal void SetId(int id) => Id = id;
@@ -41,13 +44,20 @@ namespace Domain.Hasselhoffing.ACoworker
 
         public class CommandHandler : IRequestHandler<HasselhoffingACoworkerCommand, HasselhoffingACoworkerResponse>
         {
+            private readonly IDateTimeProvider _dateTimeProvider;
+
+            public CommandHandler(IDateTimeProvider dateTimeProvider)
+            {
+                _dateTimeProvider = dateTimeProvider;
+            }
 
             async Task<HasselhoffingACoworkerResponse> IRequestHandler<HasselhoffingACoworkerCommand, HasselhoffingACoworkerResponse>.Handle(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
             {
                 var response = new HasselhoffingACoworkerResponse(
                     request.PersonThatCommittedTheOffense,
                     request.PersonThatWasHoffed,
-                    request.ImageUrl);
+                    request.ImageUrl,
+                    _dateTimeProvider.UtcNow);
 
                 return response;
             }

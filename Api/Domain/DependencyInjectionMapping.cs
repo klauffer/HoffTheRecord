@@ -1,6 +1,6 @@
-﻿
-using Domain.Hasselhoffing.ACoworker;
+﻿using Domain.Hasselhoffing.ACoworker;
 using Domain.UniversalCancellationHandler;
+using Domain.UniversalDateTime;
 using Domain.UniversalValidator;
 using FluentValidation;
 using MediatR;
@@ -19,6 +19,7 @@ namespace Domain
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddHasselhoffingACoworker();
+            services.AddDateTimeProvider();
         }
     }
 }
