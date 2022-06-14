@@ -2,7 +2,13 @@
 {
     public class HttpValidationError
     {
-        public string PropertyName { get; set; }
-        public string Message { get; set; }
+        public HttpValidationError(string propertyName, string message)
+        {
+            PropertyName = propertyName;
+            Message = message;
+        }
+
+        public string PropertyName { get; }
+        public string Message { get; }
     }
 }

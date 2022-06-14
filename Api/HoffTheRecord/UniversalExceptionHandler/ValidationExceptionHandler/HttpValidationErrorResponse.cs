@@ -2,6 +2,11 @@
 {
     public class HttpValidationErrorResponse
     {
-        public IEnumerable<HttpValidationError> HttpValidationErrors { get; set; }
+        public HttpValidationErrorResponse(IEnumerable<HttpValidationError> httpValidationErrors)
+        {
+            HttpValidationErrors = httpValidationErrors;
+        }
+
+        public IEnumerable<HttpValidationError> HttpValidationErrors { get; }
     }
 }

@@ -34,8 +34,8 @@ namespace API.UniversalExceptionHandler.ValidationExceptionHandler
         private static string SerializeErrors(ValidationException validationException)
         {
             var httpValidationErrors = validationException.Errors.Select(error =>
-                            new HttpValidationError() { PropertyName = error.PropertyName, Message = error.ErrorMessage });
-            var httpValidationErrorResponse = new HttpValidationErrorResponse() { HttpValidationErrors = httpValidationErrors };
+                            new HttpValidationError(error.PropertyName, error.ErrorMessage));
+            var httpValidationErrorResponse = new HttpValidationErrorResponse(httpValidationErrors);
             var serializedResponse = JsonSerializer.Serialize(httpValidationErrorResponse);
             return serializedResponse;
         }

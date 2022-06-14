@@ -34,7 +34,7 @@ namespace API.UniversalExceptionHandler.DomainExceptionHandler
 
         private static string SerializeErrors(DomainException domainException)
         {
-            var httpDomainErrorResponse = new HttpDomainErrorResponse() { Message = domainException.Message};
+            var httpDomainErrorResponse = new HttpDomainErrorResponse(domainException.Message);
             var serializedResponse = JsonSerializer.Serialize(httpDomainErrorResponse);
             return serializedResponse;
         }

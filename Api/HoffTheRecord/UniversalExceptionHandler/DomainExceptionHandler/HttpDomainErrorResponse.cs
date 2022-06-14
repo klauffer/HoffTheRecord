@@ -2,6 +2,11 @@
 {
     public class HttpDomainErrorResponse
     {
-        public string Message { get; set; }
+        public HttpDomainErrorResponse(string message)
+        {
+            Message = message;
+        }
+
+        public string Message { get; }
     }
 }
