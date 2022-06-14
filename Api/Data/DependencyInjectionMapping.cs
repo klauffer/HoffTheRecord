@@ -1,6 +1,5 @@
-﻿using Persistence.Hasselhoffing;
-using Domain.Hasselhoffing.ACoworker;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Persistence.Hasselhoffing;
 
 namespace Persistence
 {
@@ -9,7 +8,7 @@ namespace Persistence
         public static void AddPersistence(this IServiceCollection services)
         {
             services.AddDbContext<HoffTheRecordContext>();
-            services.AddTransient<IInsertAHasslehoffRecord, CreateAHasslehoffRecord>();
+            services.AddHasselhoffingPersistence();
         }
     }
 }

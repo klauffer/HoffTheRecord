@@ -16,17 +16,20 @@ namespace Domain.Hasselhoffing.ACoworker
         public async Task<HasselhoffingACoworkerResponse> Handle(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken, RequestHandlerDelegate<HasselhoffingACoworkerResponse> next)
         {
             var response = await next();
-            int HasslehoffId = await PersistRecord(request, cancellationToken);
+            int HasslehoffId = await PersistRecord(response, cancellationToken);
             response.SetId(HasslehoffId);
             return response;
         }
 
-        private async Task<int> PersistRecord(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
+        private async Task<int> PersistRecord(
+            HasselhoffingACoworkerResponse response,
+            CancellationToken cancellationToken)
         {
             var createAHasslehoffRecordArguements = new InsertAHasslehoffRecordArguements(
-                                                request.PersonThatCommittedTheOffense,
-                                                request.PersonThatWasHoffed,
-                                                request.ImageUrl);
+                                                response.PersonThatCommittedTheOffense,
+                                                response.PersonThatWasHoffed,
+                                                response.ImageUrl,
+                                                response.TimeOfTheHoffing);
             var HasslehoffId = await _createAHasslehoffRecord.Execute(createAHasslehoffRecordArguements, cancellationToken);
             return HasslehoffId;
         }

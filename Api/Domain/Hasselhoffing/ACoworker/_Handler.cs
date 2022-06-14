@@ -45,23 +45,45 @@ namespace Domain.Hasselhoffing.ACoworker
         public class CommandHandler : IRequestHandler<HasselhoffingACoworkerCommand, HasselhoffingACoworkerResponse>
         {
             private readonly IDateTimeProvider _dateTimeProvider;
+            private readonly IGetWhenAUserWasLastHoffed _getWhenAUserWasLastHoffed;
 
-            public CommandHandler(IDateTimeProvider dateTimeProvider)
+            public CommandHandler(
+                IDateTimeProvider dateTimeProvider,
+                IGetWhenAUserWasLastHoffed getWhenAUserWasLastHoffed)
             {
                 _dateTimeProvider = dateTimeProvider;
+                _getWhenAUserWasLastHoffed = getWhenAUserWasLastHoffed;
             }
 
-            async Task<HasselhoffingACoworkerResponse> IRequestHandler<HasselhoffingACoworkerCommand, HasselhoffingACoworkerResponse>.Handle(HasselhoffingACoworkerCommand request, CancellationToken cancellationToken)
+            async Task<HasselhoffingACoworkerResponse> IRequestHandler<HasselhoffingACoworkerCommand, HasselhoffingACoworkerResponse>.Handle(HasselhoffingACoworkerCommand command, CancellationToken cancellationToken)
             {
+                await ValidateSystemCanAcceptCommand(command);
                 var response = new HasselhoffingACoworkerResponse(
-                    request.PersonThatCommittedTheOffense,
-                    request.PersonThatWasHoffed,
-                    request.ImageUrl,
+                    command.PersonThatCommittedTheOffense,
+                    command.PersonThatWasHoffed,
+                    command.ImageUrl,
                     _dateTimeProvider.UtcNow);
 
                 return response;
             }
-        }
 
+            private async Task ValidateSystemCanAcceptCommand(HasselhoffingACoworkerCommand command)
+            {
+                await HasEnoughTimePassedSinceLastHoffing(command.PersonThatWasHoffed);
+            }
+
+            private async Task HasEnoughTimePassedSinceLastHoffing(string PersonThatWasHoffed)
+            {
+                var timeOfLastHoffing = await _getWhenAUserWasLastHoffed.Query(PersonThatWasHoffed);
+                if (timeOfLastHoffing.AddMinutes(1) >= _dateTimeProvider.UtcNow)
+                {
+                    var passedTimeSinceHoffing = _dateTimeProvider.UtcNow - timeOfLastHoffing;
+                    throw new DomainException(
+                        "{0} was Hoffed {1} seconds ago. Can you give them a minute!?",
+                        PersonThatWasHoffed,
+                        passedTimeSinceHoffing.TotalSeconds);
+                }
+            }
+        }
     }
 }

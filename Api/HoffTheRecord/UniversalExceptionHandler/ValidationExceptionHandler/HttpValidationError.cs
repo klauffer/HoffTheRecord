@@ -1,4 +1,4 @@
-﻿namespace API.UniversalExceptionHandler
+﻿namespace API.UniversalExceptionHandler.ValidationExceptionHandler
 {
     public class HttpValidationError
     {

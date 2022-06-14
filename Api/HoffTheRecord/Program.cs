@@ -1,5 +1,6 @@
 using API;
-using API.UniversalExceptionHandler;
+using API.UniversalExceptionHandler.DomainExceptionHandler;
+using API.UniversalExceptionHandler.ValidationExceptionHandler;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +32,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCustomExceptionHandlingMiddleware();
+app.UseCustomValidationExceptionMiddleware();
+app.UseCustomDomainExceptionMiddleware();
 
 app.MapControllers();
 

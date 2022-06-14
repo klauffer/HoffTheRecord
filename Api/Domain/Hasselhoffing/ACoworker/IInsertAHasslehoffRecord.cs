@@ -5,17 +5,19 @@
         public class InsertAHasslehoffRecordArguements
         {
             public string PersonThatCommittedTheOffense { get; }
-            public string PersonThatWasHoffed { get; set; }
-            public string ImageUrl { get; set; }
+            public string PersonThatWasHoffed { get; }
+            public string ImageUrl { get; }
+            public DateTime TimeOfTheHoffing { get; }
 
-            public InsertAHasslehoffRecordArguements(string personThatCommittedTheOffense, string personThatWasHoffed, string imageUrl)
+            public InsertAHasslehoffRecordArguements(string personThatCommittedTheOffense, string personThatWasHoffed, string imageUrl, DateTime timeOfTheHoffing)
             {
                 PersonThatCommittedTheOffense = personThatCommittedTheOffense;
                 PersonThatWasHoffed = personThatWasHoffed;
                 ImageUrl = imageUrl;
+                TimeOfTheHoffing = timeOfTheHoffing;
             }
 
-            
+
         }
 
         Task<int> Execute(

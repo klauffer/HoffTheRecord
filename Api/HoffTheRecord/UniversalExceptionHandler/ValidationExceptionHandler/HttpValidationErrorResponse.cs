@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace API.UniversalExceptionHandler
+﻿namespace API.UniversalExceptionHandler.ValidationExceptionHandler
 {
     public class HttpValidationErrorResponse
     {

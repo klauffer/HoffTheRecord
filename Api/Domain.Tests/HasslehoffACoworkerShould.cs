@@ -1,5 +1,6 @@
 using API.Hasselhoffing;
 using API.UniversalExceptionHandler;
+using Bogus;
 using HoffTheRecord.Acceptance.Tests.Infrastructure;
 using System.Net;
 using static Domain.Hasselhoffing.ACoworker.HasselhoffingACoworkerHandler;
@@ -10,6 +11,7 @@ namespace HoffTheRecord.Acceptance.Tests
     public class HasslehoffACoworkerShould
     {
         private readonly HoffTheRecordWebApplicationFactory<Program> _factory;
+        private readonly Faker _faker = new Faker();
 
         public HasslehoffACoworkerShould(HoffTheRecordWebApplicationFactory<Program> factory)
         {
@@ -22,8 +24,8 @@ namespace HoffTheRecord.Acceptance.Tests
             var client = _factory.BuildClient();
             var request = new HasslehoffACoworkerRequest()
             {
-                PersonThatCommittedTheOffense = "Bugs Bunny",
-                PersonThatWasHoffed = "Elmer Fudd",
+                PersonThatCommittedTheOffense = _faker.Name.FullName(),
+                PersonThatWasHoffed = _faker.Name.FullName(),
                 ImageUrl = "https://picsum.photos/200/300"
             };
             var response = await client.Post("/api/Hasselhoff", request);
@@ -35,8 +37,8 @@ namespace HoffTheRecord.Acceptance.Tests
         {
             var client = _factory.BuildClient();
             var request = new HasslehoffACoworkerRequest() { 
-                PersonThatCommittedTheOffense = "Bugs Bunny",
-                PersonThatWasHoffed = "Elmer Fudd",
+                PersonThatCommittedTheOffense = _faker.Name.FullName(),
+                PersonThatWasHoffed = _faker.Name.FullName(),
                 ImageUrl = "https://picsum.photos/200/300"
             };
 
@@ -56,7 +58,7 @@ namespace HoffTheRecord.Acceptance.Tests
             var request = new HasslehoffACoworkerRequest() 
             { 
                 PersonThatCommittedTheOffense = personThatCommittedTheOffense,
-                PersonThatWasHoffed = "Elmer Fudd",
+                PersonThatWasHoffed = _faker.Name.FullName(),
                 ImageUrl = "https://picsum.photos/200/300"
             };
             var response = await client.Post("/api/Hasselhoff", request);
@@ -72,7 +74,7 @@ namespace HoffTheRecord.Acceptance.Tests
             var client = _factory.BuildClient();
             var request = new HasslehoffACoworkerRequest()
             {
-                PersonThatCommittedTheOffense = "Bugs Bunny",
+                PersonThatCommittedTheOffense = _faker.Name.FullName(),
                 PersonThatWasHoffed = personThatWasHoffed,
                 ImageUrl = "https://picsum.photos/200/300"
             };
@@ -89,8 +91,8 @@ namespace HoffTheRecord.Acceptance.Tests
             var client = _factory.BuildClient();
             var request = new HasslehoffACoworkerRequest()
             {
-                PersonThatCommittedTheOffense = "Bugs Bunny",
-                PersonThatWasHoffed = "Elmer Fudd",
+                PersonThatCommittedTheOffense = _faker.Name.FullName(),
+                PersonThatWasHoffed = _faker.Name.FullName(),
                 ImageUrl = imageUrl
             };
             var response = await client.Post("/api/Hasselhoff", request);
@@ -103,8 +105,8 @@ namespace HoffTheRecord.Acceptance.Tests
             var client = _factory.BuildClient();
             var request = new HasslehoffACoworkerRequest()
             {
-                PersonThatCommittedTheOffense = "Bugs Bunny",
-                PersonThatWasHoffed = "Elmer Fudd",
+                PersonThatCommittedTheOffense = _faker.Name.FullName(),
+                PersonThatWasHoffed = _faker.Name.FullName(),
                 ImageUrl = "https://picsum.photos/200/300"
             };
             var response = await client.Post("/api/Hasselhoff", request);
@@ -112,6 +114,30 @@ namespace HoffTheRecord.Acceptance.Tests
 
             var responseBody = await response.GetResponse<HasselhoffingACoworkerResponse>();
             Assert.NotNull(responseBody?.TimeOfTheHoffing);
+        }
+
+        [Fact]
+        public async Task NotAllowMoreThenOneHoffingPerPersonPerMinute()
+        {
+            var client = _factory.BuildClient();
+            var personThatWasHoffed = _faker.Name.FullName();
+            var request1 = new HasslehoffACoworkerRequest()
+            {
+                PersonThatCommittedTheOffense = _faker.Name.FullName(),
+                PersonThatWasHoffed = personThatWasHoffed,
+                ImageUrl = "https://picsum.photos/200/300"
+            };
+            await client.Post("/api/Hasselhoff", request1);
+
+            var request2 = new HasslehoffACoworkerRequest()
+            {
+                PersonThatCommittedTheOffense = _faker.Name.FullName(),
+                PersonThatWasHoffed = personThatWasHoffed,
+                ImageUrl = "https://picsum.photos/200/300"
+            };
+            var response2 = await client.Post("/api/Hasselhoff", request2);
+
+            Assert.Equal(HttpStatusCode.BadRequest, response2.StatusCode);
         }
     }
 }

@@ -1,13 +1,14 @@
-﻿using FluentValidation;
+﻿using Domain;
+using FluentValidation;
 using System.Text.Json;
 
-namespace API.UniversalExceptionHandler
+namespace API.UniversalExceptionHandler.ValidationExceptionHandler
 {
-    public class CustomExceptionHandlingMiddleware
+    public class CustomValidationExceptionMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public CustomExceptionHandlingMiddleware(RequestDelegate next)
+        public CustomValidationExceptionMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -20,22 +21,14 @@ namespace API.UniversalExceptionHandler
             }
             catch (ValidationException validationException)
             {
-                await HandleExceptionAsync(context, validationException);
+                await HandleValidationExceptionAsync(context, validationException);
             }
-            
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, ValidationException validationException)
+        private async Task HandleValidationExceptionAsync(HttpContext context, ValidationException validationException)
         {
             string serializedResponse = SerializeErrors(validationException);
             await SetResponse(context, serializedResponse);
-        }
-
-        private static async Task SetResponse(HttpContext context, string serializedResponse)
-        {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            await context.Response.WriteAsync(serializedResponse);
         }
 
         private static string SerializeErrors(ValidationException validationException)
@@ -46,13 +39,22 @@ namespace API.UniversalExceptionHandler
             var serializedResponse = JsonSerializer.Serialize(httpValidationErrorResponse);
             return serializedResponse;
         }
+
+        private static async Task SetResponse(HttpContext context, string serializedResponse)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsync(serializedResponse);
+        }
+
+
     }
-    public static class CustomExceptionHandlingMiddlewareExtensions
+    public static class CustomValidationExceptionMiddlewareExtensions
     {
-        public static IApplicationBuilder UseCustomExceptionHandlingMiddleware(
+        public static IApplicationBuilder UseCustomValidationExceptionMiddleware(
             this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<CustomExceptionHandlingMiddleware>();
+            return builder.UseMiddleware<CustomValidationExceptionMiddleware>();
         }
     }
 }
