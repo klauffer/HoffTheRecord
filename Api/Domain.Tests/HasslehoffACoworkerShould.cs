@@ -22,12 +22,11 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task ReturnASuccessCode()
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest()
-            {
-                PersonThatCommittedTheOffense = _faker.Name.FullName(),
-                PersonThatWasHoffed = _faker.Name.FullName(),
-                ImageUrl = "https://picsum.photos/200/300"
-            };
+            var request = new HasslehoffACoworkerRequest (
+                personThatCommittedTheOffense: _faker.Name.FullName(),
+                personThatWasHoffed: _faker.Name.FullName(),
+                imageUrl: "https://picsum.photos/200/300"
+            );
             var response = await client.Post("/api/Hasselhoff", request);
             response.EnsureSuccessStatusCode();
         }
@@ -36,11 +35,11 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task CancelTheRequest()
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() { 
-                PersonThatCommittedTheOffense = _faker.Name.FullName(),
-                PersonThatWasHoffed = _faker.Name.FullName(),
-                ImageUrl = "https://picsum.photos/200/300"
-            };
+            var request = new HasslehoffACoworkerRequest(
+                personThatCommittedTheOffense: _faker.Name.FullName(),
+                personThatWasHoffed: _faker.Name.FullName(),
+                imageUrl: "https://picsum.photos/200/300"
+            );
 
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
@@ -55,12 +54,12 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task RequirePersonThatCommittedTheOffense(string personThatCommittedTheOffense)
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest() 
-            { 
-                PersonThatCommittedTheOffense = personThatCommittedTheOffense,
-                PersonThatWasHoffed = _faker.Name.FullName(),
-                ImageUrl = "https://picsum.photos/200/300"
-            };
+
+            var request = new HasslehoffACoworkerRequest(
+                personThatCommittedTheOffense: personThatCommittedTheOffense,
+                personThatWasHoffed: _faker.Name.FullName(),
+                imageUrl: "https://picsum.photos/200/300"
+            );
             var response = await client.Post("/api/Hasselhoff", request);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -72,12 +71,11 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task RequirePersonThatWasHoffed(string personThatWasHoffed)
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest()
-            {
-                PersonThatCommittedTheOffense = _faker.Name.FullName(),
-                PersonThatWasHoffed = personThatWasHoffed,
-                ImageUrl = "https://picsum.photos/200/300"
-            };
+            var request = new HasslehoffACoworkerRequest(
+                personThatCommittedTheOffense: _faker.Name.FullName(),
+                personThatWasHoffed: personThatWasHoffed,
+                imageUrl: "https://picsum.photos/200/300"
+            );
             var response = await client.Post("/api/Hasselhoff", request);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -89,12 +87,11 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task RequireImageUrl(string imageUrl)
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest()
-            {
-                PersonThatCommittedTheOffense = _faker.Name.FullName(),
-                PersonThatWasHoffed = _faker.Name.FullName(),
-                ImageUrl = imageUrl
-            };
+            var request = new HasslehoffACoworkerRequest(
+                personThatCommittedTheOffense: _faker.Name.FullName(),
+                personThatWasHoffed: _faker.Name.FullName(),
+                imageUrl: imageUrl
+            );
             var response = await client.Post("/api/Hasselhoff", request);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -103,12 +100,11 @@ namespace HoffTheRecord.Acceptance.Tests
         public async Task RecordATimeStamp()
         {
             var client = _factory.BuildClient();
-            var request = new HasslehoffACoworkerRequest()
-            {
-                PersonThatCommittedTheOffense = _faker.Name.FullName(),
-                PersonThatWasHoffed = _faker.Name.FullName(),
-                ImageUrl = "https://picsum.photos/200/300"
-            };
+            var request = new HasslehoffACoworkerRequest(
+                personThatCommittedTheOffense: _faker.Name.FullName(),
+                personThatWasHoffed: _faker.Name.FullName(),
+                imageUrl: "https://picsum.photos/200/300"
+            );
             var response = await client.Post("/api/Hasselhoff", request);
             response.EnsureSuccessStatusCode();
 
@@ -121,20 +117,19 @@ namespace HoffTheRecord.Acceptance.Tests
         {
             var client = _factory.BuildClient();
             var personThatWasHoffed = _faker.Name.FullName();
-            var request1 = new HasslehoffACoworkerRequest()
-            {
-                PersonThatCommittedTheOffense = _faker.Name.FullName(),
-                PersonThatWasHoffed = personThatWasHoffed,
-                ImageUrl = "https://picsum.photos/200/300"
-            };
+
+            var request1 = new HasslehoffACoworkerRequest(
+                personThatCommittedTheOffense: _faker.Name.FullName(),
+                personThatWasHoffed: personThatWasHoffed,
+                imageUrl: "https://picsum.photos/200/300"
+            );
             await client.Post("/api/Hasselhoff", request1);
 
-            var request2 = new HasslehoffACoworkerRequest()
-            {
-                PersonThatCommittedTheOffense = _faker.Name.FullName(),
-                PersonThatWasHoffed = personThatWasHoffed,
-                ImageUrl = "https://picsum.photos/200/300"
-            };
+            var request2 = new HasslehoffACoworkerRequest(
+                personThatCommittedTheOffense: _faker.Name.FullName(),
+                personThatWasHoffed: personThatWasHoffed,
+                imageUrl: "https://picsum.photos/200/300"
+            );
             var response2 = await client.Post("/api/Hasselhoff", request2);
 
             Assert.Equal(HttpStatusCode.BadRequest, response2.StatusCode);
